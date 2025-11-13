@@ -158,6 +158,9 @@ func (r *Resolver) ResolveWithSecondaryDNS(ctx context.Context, host string) (co
 }
 
 func (r *Resolver) CleanCache(duration time.Duration) {
+	if duration <= 0 {
+		return
+	}
 	for {
 		time.Sleep(duration)
 		// dnsCache already cleaned
@@ -217,7 +220,8 @@ func NewResolver(stack stack.Stack, remoteDNSServer, secondaryDNSServer string, 
 			PreferGo: true,
 		}
 	}
-	// sleep 10 times ttl
-	go resolver.CleanCache(time.Duration(ttl) * time.Second * 10)
+	if ttl > 0 {
+		go resolver.CleanCache(time.Duration(ttl) * time.Second * 10)
+	}
 	return resolver
 }

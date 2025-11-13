@@ -45,6 +45,13 @@
 
   For details, see this [link](https://github.com/Mythologyli/zju-connect/issues/65#issuecomment-2650185322)
 
+#### runs as a service on mobile devices
+'gomobile' can be used to compile 'mobile/mobile_service.go' as a service and integrate it into the mobile application
+```bash
+gomobile bind -o connect.aar -target=android -androidapi 21 github.com/mythologyli/zju-connect/mobile
+gomobile bind -target=ios -o connect.xcframework github.com/mythologyli/zju-connect/mobile
+```
+
 #### Run as a service
 
 [Link](docs/service_en.md)
