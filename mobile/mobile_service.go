@@ -127,19 +127,21 @@ func StartProxy(server string, port int, user string, pass string) {
 		for _, err := range errs {
 			log.Printf("Initial ZJU-Connect failed: %s", err)
 		}
-		os.Exit(1)
+		return
 	}
 
 	tlsCert := tls.Certificate{}
 	if conf.CertFile != "" {
 		p12Data, err := os.ReadFile(conf.CertFile)
 		if err != nil {
-			log.Fatalf("Read certificate file error: %s", err)
+			log.Printf("Read certificate file error: %s", err)
+			return
 		}
 
 		key, cert, err := pkcs12.Decode(p12Data, conf.CertPassword)
 		if err != nil {
-			log.Fatalf("Decode certificate file error: %s", err)
+			log.Printf("Decode certificate file error: %s", err)
+			return
 		}
 
 		tlsCert = tls.Certificate{
@@ -162,7 +164,8 @@ func StartProxy(server string, port int, user string, pass string) {
 	)
 	err := vpnClient.Setup()
 	if err != nil {
-		log.Fatalf("EasyConnect client setup error: %s", err)
+		log.Printf("EasyConnect client setup error: %s", err)
+		return
 	}
 
 	log.Printf("EasyConnect client started")
@@ -269,7 +272,8 @@ func StartProxy(server string, port int, user string, pass string) {
 	} else {
 		vpnStack, err = gvisor.NewStack(vpnClient)
 		if err != nil {
-			log.Fatalf("gVisor stack setup error: %s", err)
+			log.Printf("gVisor stack setup error: %s", err)
+			return
 		}
 	}
 

@@ -1,14 +1,18 @@
+//go:build darwin && !ios
+// +build darwin,!ios
+
 package hook_func
 
 import (
 	"bytes"
 	"context"
 	"errors"
-	"github.com/mythologyli/zju-connect/configs"
 	"os"
 	"os/exec"
 	"os/user"
 	"strings"
+
+	"github.com/mythologyli/zju-connect/configs"
 )
 
 // get all services and skip element contains "*"
