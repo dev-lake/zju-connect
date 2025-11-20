@@ -380,7 +380,7 @@ func defaultConf() *configs.Config {
 		DisableZJUConfig: true,
 		DisableZJUDNS:    true,
 		DNSTTL:           3600,
-		HTTPBind:         "127.0.0.1:1080",
-		SocksBind:        "127.0.0.1:1081",
+		HTTPBind:         "127.0.0.1:31080",
+		SocksBind:        "127.0.0.1:31081",
 	}
 }
